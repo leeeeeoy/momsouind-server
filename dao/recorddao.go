@@ -20,7 +20,7 @@ func (*RecordDao) SelectByUserID(id int) *[]models.RecordData {
 		id,
 	)
 	if err != nil {
-		log.Println("녹음기록 조회가 안되용", err)
+		log.Println("녹음기록 조회x", err)
 	}
 	return &records
 }

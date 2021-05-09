@@ -16,3 +16,7 @@ func UserRoutes(e *echo.Echo) {
 func RecordRoutes(e *echo.Echo) {
 	e.GET("/record/:id", controllers.GetRecord)
 }
+
+func DiaryRoutes(e *echo.Echo) {
+	e.GET("/diary/:id", controllers.GetDiary)
+}

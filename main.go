@@ -24,6 +24,8 @@ func main() {
 
 	routes.UserRoutes(e)
 	routes.RecordRoutes(e)
+	routes.DiaryRoutes(e)
+
 	fmt.Println("연결주소:", GetOutboundIP())
 	e.Logger.Fatal(e.Start(":8080"))
 }
