@@ -10,6 +10,12 @@ import (
 	"github.com/leeeeeoy/momsori-server/models"
 )
 
+func SelectUserWithBabybyID(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	ub := dao.PublicUserDatas.SelectTest(id)
+	return c.JSON(http.StatusOK, ub)
+}
+
 func PostUser(c echo.Context) error {
 	u := models.User{}
 	if err := c.Bind(&u); err != nil {
@@ -31,17 +37,17 @@ func GetUserByID(c echo.Context) error {
 	return c.JSON(http.StatusOK, &u)
 }
 
-func UpdateUser(c echo.Context) error {
-	u := &models.User{}
-	if err := c.Bind(u); err != nil {
-		return err
-	}
-	result := dao.PublicUserDao.UpdateByID(u)
-	if result == -1 {
-		log.Println("업데이트 안되는데용")
-	}
-	return c.JSON(http.StatusOK, "수정완료")
-}
+// func UpdateUser(c echo.Context) error {
+// 	u := &models.User{}
+// 	if err := c.Bind(u); err != nil {
+// 		return err
+// 	}
+// 	result := dao.PublicUserDao.UpdateByID(u)
+// 	if result == -1 {
+// 		log.Println("업데이트 안되는데용")
+// 	}
+// 	return c.JSON(http.StatusOK, "수정완료")
+// }
 
 func DeleteUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))

@@ -10,6 +10,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/leeeeeoy/momsori-server/dao"
 	"github.com/leeeeeoy/momsori-server/db"
 	"github.com/leeeeeoy/momsori-server/routes"
 )
@@ -22,9 +23,12 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	dao.PublicFileDatasDao.SelectAllByID(1)
+
 	routes.UserRoutes(e)
 	routes.RecordRoutes(e)
 	routes.DiaryRoutes(e)
+	routes.FileDatasRoute(e)
 
 	fmt.Println("연결주소:", GetOutboundIP())
 	e.Logger.Fatal(e.Start(":8080"))

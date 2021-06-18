@@ -1,7 +1,6 @@
 package dao
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/leeeeeoy/momsori-server/db"
@@ -15,8 +14,8 @@ var PublicUserDao *UserDao
 
 func (*UserDao) InsertUser(user *models.User) int64 {
 	result := db.DBClient.MustExec(
-		"insert into users (name, email, age, password, baby_name, baby_nickname, baby_birth) values(?, ?, ?, ?, ?, ?, ?)",
-		user.Name, user.Email, user.Age, user.Password, user.BabyName, user.BabyNickname, user.BabyBirth)
+		"insert into users (name, email, age, password) values(?, ?, ?, ?)",
+		user.Name, user.Email, user.Age, user.Password)
 
 	id, err := result.LastInsertId()
 	if err != nil {
@@ -35,30 +34,30 @@ func (*UserDao) SelectByID(id int) *models.User {
 	return &user
 }
 
-func (*UserDao) UpdateByID(user *models.User) int64 {
-	data, values, err := user.UpdateData()
-	if err != nil {
-		log.Println(err)
-		return -1
-	}
+// func (*UserDao) UpdateByID(user *models.User) int64 {
+// 	data, values, err := user.UpdateData()
+// 	if err != nil {
+// 		log.Println(err)
+// 		return -1
+// 	}
 
-	result := db.DBClient.MustExec(
-		fmt.Sprintf("update users set %s where id = ?", data),
-		append(values, user.ID)...,
-	)
+// 	result := db.DBClient.MustExec(
+// 		fmt.Sprintf("update users set %s where id = ?", data),
+// 		append(values, user.ID)...,
+// 	)
 
-	rows, err := result.RowsAffected()
-	if err != nil {
-		log.Println(err)
-		return -1
-	}
-	if rows != 1 {
-		log.Println("잘못 변경됨; 변경된 갯수:", rows)
-		return -1
-	}
+// 	rows, err := result.RowsAffected()
+// 	if err != nil {
+// 		log.Println(err)
+// 		return -1
+// 	}
+// 	if rows != 1 {
+// 		log.Println("잘못 변경됨; 변경된 갯수:", rows)
+// 		return -1
+// 	}
 
-	return rows
-}
+// 	return rows
+// }
 
 func (*UserDao) DeleteByID(id int) int64 {
 	result := db.DBClient.MustExec(
@@ -72,7 +71,7 @@ func (*UserDao) DeleteByID(id int) int64 {
 		return -1
 	}
 	if rows != 1 {
-		log.Println("잘못 변경됨; 변경된 갯수:", rows)
+		log.Println("잘못 삭제됨; 삭제된 갯수:", rows)
 		return -1
 	}
 	return rows

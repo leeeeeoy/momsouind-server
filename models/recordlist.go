@@ -2,7 +2,7 @@ package models
 
 type RecordData struct {
 	ID         int    `json:"id"`
-	UserID     int    `json:"user_id"`
+	CategoryID int    `json:"category_id"`
 	Filename   string `json:"file_name"`
 	RecordDate string `json:"record_date"`
 	CreatedAt  string `json:"created_at"`
